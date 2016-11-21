@@ -28,7 +28,7 @@ post '/ddabong' do
     count = dda.count
     p dda
     p count.to_s
-    return { :text => "총 따봉 " }
+    return { :text => "총 따봉 count.to_s}" }.to_json
   end
 end
 
