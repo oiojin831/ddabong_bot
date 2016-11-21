@@ -32,8 +32,10 @@ post '/ddabong' do
   elsif text[0] == "check"
     if user = User.find_or_create_by(name: text[1])
       p user
-      count = Ddabong.where(to: user.id).count
-      p count
+      dda = Ddabong.where(to: user.id)
+      count = dda.count
+      p dda
+      p count.to_s
       return { :text => "총 따봉 #{count.to_s}" }
     end
     return { :text => "노 따봉 맨" }
