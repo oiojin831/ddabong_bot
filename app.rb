@@ -34,7 +34,7 @@ post '/ddabong' do
       p user
       count = Ddabong.where(to: user.id).count
       p count
-      return { :text => "총 따봉 #{count}" }
+      return { :text => "총 따봉 #{count.to_s}" }
     end
     return { :text => "노 따봉 맨" }
   end
