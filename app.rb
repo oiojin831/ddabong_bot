@@ -14,6 +14,8 @@ post '/ddabong' do
   if text[0] == "give"
     # save data to db
     # check db with name
+    puts params[:user_name]
+    puts text[1]
     from = User.find_by(name: params[:user_name])
     to = User.find_by(name: text[1])
 
@@ -21,7 +23,9 @@ post '/ddabong' do
     return { :text => "#{text[1]}님은 #{params[:user_name]}님으로부터 따봉 하나를 받았습니다.", response_type: "in_channel", }.to_json
   elsif text[0] == "check"
     if user = User.find_by(name: text[1])
+      puts user
       count = Ddabong.where(to: user.id).count
+      puts count
       return { :text => "총 따봉 #{count}" }
     end
     return { :text => "노 따봉 맨" }
