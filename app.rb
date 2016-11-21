@@ -16,9 +16,10 @@ post '/ddabong' do
     # check db with name
     return { :text => "#{text[1]}님은 #{params[:user_name]}님으로부터 따봉 하나를 받았습니다.", response_type: "in_channel", }.to_json
   elsif text[0] == "check"
-    user = User.find_by(name: text[1])
-    ddabong = Ddabong.find_by(to: user.id)
-    return { :text => "총 따봉 #{ddabong.count}" }
+    if user = User.find_by(name: text[1])
+      ddabong = Ddabong.find_by(to: user.id)
+    end
+    return { :text => "총 따봉 #{ddabong.count if ddabong}" }
   end
 end
 
