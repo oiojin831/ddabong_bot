@@ -17,12 +17,19 @@ post '/ddabong' do
     to = User.find_or_create_by(name: text[1])
 
     Ddabong.create(from: from.id, to: to.id)
-    return { :text => "#{text[1]}님은 #{params[:user_name]}님으로부터 따봉 하나를 받았습니다.", response_type: "in_channel", }.to_json
+    return {
+      text: "#{to.name}님은 #{from.name}님으로부터 따봉 하나를 받았습니다.",
+      response_type: "in_channel",
+    }.to_json
+
   elsif text[0] == "check"
     user = User.find_or_create_by(name: text[1])
-    dda = Ddabong.where(to: user.id)
-    count = dda.count
-    return { :text => "총 따봉 #{count.to_s}" , response_type: "in_channel", }.to_json
+    count = Ddabong.where(to: user.id).count
+
+    return {
+      text: "총 따봉 #{count.to_s}",
+      response_type: "in_channel",
+    }.to_json
   end
 end
 
