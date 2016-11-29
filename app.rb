@@ -24,6 +24,19 @@ post '/ddabong' do
 
   elsif text[0] == "check"
     user = User.find_or_create_by(name: text[1])
+    if user.nil?
+      text=""
+      users = User.all
+      users.each do |u|
+        count = Ddabong.where(to: u.id).count
+        text << "#{count.to_s}\n"
+      end
+
+      return {
+        text: text,
+        response_type: "in_channel",
+      }.to_json
+    end
     count = Ddabong.where(to: user.id).count
 
     return {
