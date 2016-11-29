@@ -24,6 +24,8 @@ post '/ddabong' do
 
   elsif text[0] == "check"
     user = User.find_or_create_by(name: text[1])
+    p user.nil?
+    p user
     if user.nil?
       text=""
       users = User.all
