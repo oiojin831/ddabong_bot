@@ -24,14 +24,12 @@ post '/ddabong' do
 
   elsif text[0] == "check"
     user = User.find_or_create_by(name: text[1])
-    p user.nil?
-    p text[1]
     if text[1].nil?
-      text=""
+      text="-----------------------"
       users = User.all
       users.each do |u|
         count = Ddabong.where(to: u.id).count
-        text << "#{count.to_s}\n"
+        text << "#{u.name}: #{count.to_s}\n"
       end
 
       return {
