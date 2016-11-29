@@ -26,7 +26,7 @@ post '/ddabong' do
     user = User.find_or_create_by(name: text[1])
     p user.nil?
     p text[1]
-    if text[1].empty?
+    if text[1].nil?
       text=""
       users = User.all
       users.each do |u|
