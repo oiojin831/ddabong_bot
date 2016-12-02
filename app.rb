@@ -52,4 +52,9 @@ class User < ActiveRecord::Base
 end
 
 class Ddabong < ActiveRecord::Base
+  validate :block_self, on: :create
+
+  def block_self
+    errors.add(:customer_id, "is not active") if from == to
+  end
 end
