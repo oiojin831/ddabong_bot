@@ -16,7 +16,12 @@ post '/ddabong' do
     from = User.find_or_create_by(name: params[:user_name])
     to = User.find_or_create_by(name: text[1])
 
-    Ddabong.create(from: from.id, to: to.id)
+    unless Ddabong.create(from: from.id, to: to.id)
+      return {
+        text: "자봉 하지마세요",
+        response_type: "in_channel",
+      }
+    end
     return {
       text: "#{to.name}님은 #{from.name}님으로부터 따봉 하나를 받았습니다.",
       response_type: "in_channel",
